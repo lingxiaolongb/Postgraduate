@@ -44,7 +44,7 @@ $(function(){
                 layer.alert('信息更新成功', {icon: 1});
             },
             error:function () {
-                layer.alert('服务器出错啦', {icon: 0});
+                layer.alert('服务器出错啦', {icon: 1});
             },
             type:"post"
         });

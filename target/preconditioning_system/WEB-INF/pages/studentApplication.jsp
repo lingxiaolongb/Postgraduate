@@ -123,7 +123,7 @@
                 <div class="selects"   >
                     <span>志愿二:${app.application2}</span>
                     <c:if test="${!empty schoolNames}">
-                        <select class='chosen' id="chosen-2" data-placeholder='请选择志愿2'  >
+                        <select class='chosen' id="chosen-1" data-placeholder='请选择志愿1'  >
                             <option value="" hassubinfo="true" >请选择志愿</option>
                             <c:forEach items="${schoolNames}" var="name">
                                 <option value="${name}">${name}</option>
@@ -134,7 +134,7 @@
                 <div class="selects"   >
                     <span>志愿三:${app.application3}</span>
                     <c:if test="${!empty schoolNames}">
-                        <select class='chosen' id="chosen-3" data-placeholder='请选择志愿3'  >
+                        <select class='chosen' id="chosen-1" data-placeholder='请选择志愿1'  >
                             <option value="" hassubinfo="true" >请选择志愿</option>
                             <c:forEach items="${schoolNames}" var="name">
                                 <option value="${name}">${name}</option>
@@ -145,7 +145,7 @@
                 <div class="selects"  >
                     <span>志愿四:${app.application4}</span>
                     <c:if test="${!empty schoolNames}">
-                        <select class='chosen' id="chosen-4" data-placeholder='请选择志愿4'  >
+                        <select class='chosen' id="chosen-1" data-placeholder='请选择志愿1'  >
                             <option value="" hassubinfo="true" >请选择志愿</option>
                             <c:forEach items="${schoolNames}" var="name">
                                 <option value="${name}">${name}</option>

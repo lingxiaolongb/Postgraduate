@@ -156,9 +156,14 @@
 
     
     <select id="findStudentByLoginName" resultMap="BaseResultMap">
-        select  exam_id, sname, from_school, from_subject, to_school, to_subject, total, politics,
-                english, math, specialized, si.del_flag from sys_user u,student_info si
-        where u.uno=si.exam_id and login_name=#{loginName}
+        select exam_id,sname,from_school,from_subject,to_school,to_subject,total,politics,
+               english,
+               math,
+               specialized,
+               ss.del_flag
+        from sys_user u
+                 inner join student_info ss on u.uno = ss.exam_id
+        where login_name = #{loginName}
     </select>
 
 

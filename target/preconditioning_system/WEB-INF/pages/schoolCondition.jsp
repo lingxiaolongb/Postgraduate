@@ -45,7 +45,7 @@
             <li><a href="school/view.do">查看缺额信息</a></li>
             <li><a href="school/choose">筛选考生信息</a></li>
             <li><a href="school/notice">发送复试通知</a></li>
-            <li style="background: #ead2be"><a href="school/condition.do">考生复试情况</a></li>
+            <li><a href="school/condition.do">考生复试情况</a></li>
         </ul>
     </div>
     <div class="body_left">

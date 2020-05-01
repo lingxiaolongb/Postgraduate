@@ -1,6 +1,5 @@
 package com.itheima.service.impl;
 
-import com.itheima.constant.Cache;
 import com.itheima.dao.ISchollInfoDao;
 import com.itheima.dao.ISchollStudentMessageDao;
 import com.itheima.dao.ISchollVacancyDao;
@@ -11,9 +10,6 @@ import com.itheima.domian.StudentInfo;
 import com.itheima.paging.Page;
 import com.itheima.service.IAssociationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,37 +45,13 @@ public class AssociationServiceImpl implements IAssociationService {
     }
 
     @Override
-    @Cacheable(value = Cache.STU_SCH,key = "'send'+#id")
     public List<Map<String, Object>> findReDataBySendFlag(String id, Page page) {
         return schollStudentMessageDao.findReDataBySendFlag(id,page);
     }
 
     @Override
-    @Cacheable(value = Cache.STU_SCH,key = "'sendRows'+#id")
     public int findRowsBySendFlag(String id) {
         return schollStudentMessageDao.findRowsBySendFlag(id);
-    }
-
-
-
-
-    @Override
-    @Cacheable(value = Cache.STU_SCH,key="'agree'+#id")
-    public List<SchollInfo> findSuccessByStuId(String id) {
-        return schollStudentMessageDao.findSuccessByStuId(id);
-    }
-
-    @Override
-    @CacheEvict(value =Cache.STU_SCH,allEntries = true,beforeInvocation = true)
-    public Integer refuseStudent(String stuId, String schId) {
-        return schollStudentMessageDao.refuseStudent(stuId, schId);
-    }
-
-    @Override
-    @CacheEvict(value =Cache.STU_SCH,allEntries = true,beforeInvocation = true)
-    public Integer acceptSchool(String stuId, String schName) {
-        String schId=schollInfoDao.findBySchoolName(schName);
-        return schollStudentMessageDao.acceptSchool(stuId, schId);
     }
 
     @Override
@@ -135,6 +107,18 @@ public class AssociationServiceImpl implements IAssociationService {
         return  a;
     }
 
+    @Override
+    public Integer refuseStudent(String stuId, String schId) {
+        return schollStudentMessageDao.refuseStudent(stuId, schId);
+
+    }
+
+    @Override
+    public Integer acceptSchool(String stuId, String schName) {
+        String schId = schollInfoDao.findBySchoolName(schName);
+        return schollStudentMessageDao.acceptSchool(stuId, schId);
+
+    }
 
     @Override
     public Integer refuseSchool(String stuId, String schName) {
@@ -147,7 +131,10 @@ public class AssociationServiceImpl implements IAssociationService {
         return schollStudentMessageDao.findParticipantStudent(id);
     }
 
-
+    @Override
+    public List<SchollInfo> findSuccessByStuId(String id) {
+        return schollStudentMessageDao.findSuccessByStuId(id);
+    }
 
     @Override
     public SchollStudentMessage findStudentWithSchool(Map<String,Object> map) {

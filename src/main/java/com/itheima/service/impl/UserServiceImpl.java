@@ -33,6 +33,7 @@ public class UserServiceImpl  implements IUserService {
 
     @Override
     public int insert(SysUser record,String roleName) {
+
         record.setLoginFlag("0");
         userDao.insert(record);
         SysUserRole userRole=new SysUserRole();

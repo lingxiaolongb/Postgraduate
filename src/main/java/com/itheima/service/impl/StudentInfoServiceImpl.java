@@ -5,9 +5,6 @@ import com.itheima.domian.StudentInfo;
 import com.itheima.paging.Page;
 import com.itheima.service.IStudentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,21 +24,17 @@ public class StudentInfoServiceImpl implements IStudentInfoService {
         return studentInfoDao.insert(record);
     }
 
+    @Override
+    public StudentInfo selectByPrimaryKey(String examId) {
+        return studentInfoDao.selectByPrimaryKey(examId);
+    }
 
     @Override
     public List<StudentInfo> selectAll() {
         return studentInfoDao.selectAll();
     }
 
-
     @Override
-    @Cacheable(cacheNames = "student",key ="'info:'+#examId")
-    public StudentInfo selectByPrimaryKey(String examId) {
-        return studentInfoDao.selectByPrimaryKey(examId);
-    }
-
-    @Override
-    @CacheEvict(cacheNames = "student",key ="'info:'+#record.examId")
     public int updateByPrimaryKey(StudentInfo record) {
         return studentInfoDao.updateByPrimaryKey(record);
     }
@@ -63,11 +56,9 @@ public class StudentInfoServiceImpl implements IStudentInfoService {
 
 
     @Override
-    public StudentInfo findStudentByLoginName(String loginName) {
-        return studentInfoDao.findStudentByLoginName(loginName);
+    public StudentInfo findStudentByLoginName(String LoginName) {
+        return studentInfoDao.findStudentByLoginName(LoginName);
     }
-
-
     public int updateInfoByAdmin(String id, String name) {
         return studentInfoDao.updateInfoByAdmin(id,name);
     }

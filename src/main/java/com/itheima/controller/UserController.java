@@ -26,7 +26,7 @@ public class UserController {
 
     @RequestMapping(value = "/save",produces = "text/html;charset=UTF-8",method = RequestMethod.POST)
     @ResponseBody
-    public String saveAccount( SysUser user, String role){
+    public String saveUser(SysUser user, String role) {
         if(userService.insert(user,role.toLowerCase())==1) {
             return "trued";
         }
@@ -58,7 +58,7 @@ public class UserController {
             model.addAttribute("loginName",user.getLoginName());
             return  "{\"flag\":\"trued\"}";
         }else{
-            return  "{\"flag\":\"error\",\"msg\":\"账户或密码错误\"}";
+            return "{\"flag\":\"error\",\"msg\":\"账户密码错误\"}";
         }
 
 

@@ -1,7 +1,6 @@
 package com.itheima.service.impl;
 
 
-import com.itheima.constant.Cache;
 import com.itheima.dao.ISchollInfoDao;
 import com.itheima.dao.ISchollStudentMessageDao;
 import com.itheima.dao.IStudentApplicationDao;
@@ -12,9 +11,6 @@ import com.itheima.domian.StudentInfo;
 
 import com.itheima.service.IStudentApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -38,7 +34,6 @@ public class StudentApplicationServiceImpl implements IStudentApplicationService
 
 
     @Override
-    @CacheEvict(value = Cache.STUDENT,key = "'appInfo:'+#record.examId")
     public int insert(StudentApplication record) {
         String id=null;
         record.setFlag1("0");
@@ -68,14 +63,16 @@ public class StudentApplicationServiceImpl implements IStudentApplicationService
         return 1;
     }
 
+
     @Override
-    @Cacheable(cacheNames = Cache.STUDENT,key="'appInfo:'+#examId")
-    public StudentApplication findByExamId(String examId) {
-        return studentApplicationDao.findByExamId(examId);
+    public List<StudentApplication> selectAll() {
+        return null;
     }
 
-
-
+    @Override
+    public StudentApplication findByExamId(String id) {
+        return studentApplicationDao.findByExamId(id);
+    }
 
 
 }

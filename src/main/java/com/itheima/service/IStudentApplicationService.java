@@ -10,6 +10,9 @@ public interface IStudentApplicationService {
     int insert( StudentApplication record);
 
 
-    StudentApplication findByExamId(String  examId);
+    List<StudentApplication> selectAll();
+
+
+    StudentApplication findByExamId(String id);
 
 }

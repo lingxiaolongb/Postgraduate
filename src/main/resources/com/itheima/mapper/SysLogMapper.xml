@@ -18,10 +18,9 @@
     </select>
 
     <select id="findByPaging" resultMap="BaseResultMap">
-            select  id,type, remote_add, method, url, exception, visit_time,operation from sys_log
-            order by id desc
-            limit #{begin},#{pageSize}
-
+        select type, remote_add, method, url, exception, visit_time, operation
+        from sys_log
+        limit #{begin},#{pageSize}
     </select>
 
     <insert id="saveLog">

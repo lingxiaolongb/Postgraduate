@@ -25,8 +25,7 @@ public interface ISysUserDao {
 
     int updateByPrimaryKey(SysUser record);
 
-    @Select({"select id,login_name, password,uno,uname,email,uphone,login_flag,del_flag, \n" +
-            "remarks from sys_user where login_name=#{name} "})
+    @Select({"select * from sys_user where login_name=#{name} "})
     List<SysUser> findCheckUserName(String name);
 
     int findRows(@Param("user") SysUser user);

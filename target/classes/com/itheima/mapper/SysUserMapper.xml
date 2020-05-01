@@ -30,20 +30,8 @@
   </insert>
 
 
-    <update id="updateByLoginName">
-        update sys_user
-        set login_name = #{user.loginName,jdbcType=VARCHAR},
-            uname = #{user.uname,jdbcType=VARCHAR},
-            email = #{user.email,jdbcType=VARCHAR},
-            uphone = #{user.uphone,jdbcType=VARCHAR},
-            login_flag = #{user.loginFlag,jdbcType=CHAR}
-        where  login_name=#{sourceName}
-    </update>
 
-
-
-
-    <select id="findByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="findByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select id, login_name, password, uno, uname, email, uphone, login_flag, del_flag, 
     remarks
     from sys_user
@@ -85,23 +73,48 @@
         </if>
     </select>
 
+    <resultMap id="userRoleMap" type="com.itheima.domian.SysUser" extends="BaseResultMap">
+    <association property="userRole" columnPrefix="role_"
+                 resultMap="com.itheima.dao.ISysUserRoleDao.BaseResultMap"/>
+    </resultMap>
+    
+    <select id="findVerifyAccount" resultMap="userRoleMap">
+        select *
+        from sys_user u
+        INNER JOIN sys_user_role ur
+        ON u.login_name=ur.login_name
+        <where>
+            <if test="user.loginName!=null and user.loginName!=''">
+                and u.login_name=#{user.loginName}
+            </if>
+            <if test="user.password!=null and user.password!=''">
+                and password=#{user.password}
+            </if>
+            <if test="role!=null and role!=''">
+                and ur.rname=#{role}
+            </if>
 
-    <!-- 此句进行过SQL优化-->
-    <select id="findVerifyAccount" resultMap="BaseResultMap">
-        select ur.id, ur.login_name, password, uno, uname, email, uphone, login_flag, del_flag,
-               remarks
-        from sys_user_role ur, sys_user u
-        where  u.login_name=#{user.loginName}
-        and password=#{user.password}
-        and ur.rname=#{role} and u.login_name=ur.login_name
+        </where>
+
     </select>
 
-    <!-- 此句进行过SQL优化-->
     <select id="findByLoginName"  resultType="java.util.Map">
         select sur.login_name loginName,sur.rname roleName,su.uno id
-        from sys_user su,sys_user_role sur
-        where su.login_name=#{sourceName} and su.login_name = sur.login_name
+        from sys_user su
+                 inner  join sys_user_role sur on su.login_name = sur.login_name
+        where su.login_name=#{sourceName}
     </select>
+
+    <update id="updateByLoginName">
+            update sys_user
+            set login_name = #{user.loginName,jdbcType=VARCHAR},
+                uname = #{user.uname,jdbcType=VARCHAR},
+                email = #{user.email,jdbcType=VARCHAR},
+                uphone = #{user.uphone,jdbcType=VARCHAR},
+                login_flag = #{user.loginFlag,jdbcType=CHAR}
+            where  login_name=#{sourceName}
+    </update>
+
 
 
 

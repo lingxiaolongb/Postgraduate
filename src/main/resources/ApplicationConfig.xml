@@ -23,14 +23,9 @@
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://127.0.0.1:3306/postgraduate?useUnicode=true&amp;
-        characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai"/>
+        characterEncoding=utf-8&amp;serverTimezone=GMT"/>
         <property name="username" value="root"/>
         <property name="password" value="lxl19980820"/>
-        <property name="maxActive" value="20" />
-        <property name="initialSize" value="1" />
-        <property name="maxWait" value="600000" />
-        <property name="minIdle" value="10" />
-        <property name="removeAbandonedTimeout" value="1800" />
     </bean>
 
 
@@ -63,11 +58,10 @@
     <aop:aspectj-autoproxy/>
 
 
-
-    <aop:config  proxy-target-class="true">
+    <aop:config>
         <aop:pointcut id="pt1" expression="execution(* com.itheima.controller.*.*(..))"/>
         <aop:aspect id="logAdvice" ref="logger">
-            <aop:before method="afterReturningPrintLog" pointcut-ref="pt1"/>
+            <aop:after-returning method="afterReturningPrintLog" pointcut-ref="pt1"/>
             <aop:after-throwing method="afterThrowingPrintLog" pointcut-ref="pt1" throwing="ex"/>
         </aop:aspect>
     </aop:config>

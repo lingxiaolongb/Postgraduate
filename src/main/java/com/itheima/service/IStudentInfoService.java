@@ -26,7 +26,6 @@ public interface IStudentInfoService {
     Integer findRows(StudentInfo studentInfo,String id);
 
     StudentInfo  findStudentByLoginName(String LoginName);
-
     int updateInfoByAdmin(String id,String name);
 }
 

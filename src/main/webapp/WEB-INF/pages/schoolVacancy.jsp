@@ -40,7 +40,7 @@
     <div class="con_left">
         <ul class="con_ul">
             <li><a href="school/info">高校信息填写</a></li>
-            <li style="background: #ead2be"><a href="school/vacancy">发布缺额信息</a></li>
+            <li><a href="school/vacancy">发布缺额信息</a></li>
             <li><a href="school/view.do">查看缺额信息</a></li>
             <li><a href="school/choose">筛选考生信息</a></li>
             <li><a href="school/notice">发送复试通知</a></li>

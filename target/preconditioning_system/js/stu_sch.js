@@ -178,7 +178,9 @@ $(function() {
                         str[1] = "用户名已存在";
                         str[0] = 1
                     }
+
                 },error:function () {
+
                     return "出错"
                 }
 
@@ -194,6 +196,7 @@ $(function() {
 			<p class='wr_mes_red' id='wr_mes_name'><b class="warn_icon"></b>${str[1]}</p>`);
             return 0;
         }else {
+
             $("#stu_loginName").removeClass("ipt_wr");
             $("#wr_mes_name").remove();
             $("#stu_loginName").after(`

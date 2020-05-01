@@ -34,7 +34,6 @@ $(function () {
             });
             return;
         }
-
         layer.confirm('提交后无法修改,你确认提交吗?', {
             btn: ['确认','取消'] //按钮
         }, function(){

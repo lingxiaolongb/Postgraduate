@@ -4,8 +4,6 @@ import com.itheima.dao.ISchollInfoDao;
 import com.itheima.domian.SchollInfo;
 import com.itheima.service.ISchoolInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +32,6 @@ public class SchoolInfoServiceImpl implements ISchoolInfoService {
     }
 
     @Override
-    @Cacheable(value = "school",key = "'info:'+#schollId")
     public SchollInfo selectByPrimaryKey(String schollId) {
         return schollInfoDao.selectByPrimaryKey(schollId);
     }
@@ -45,7 +42,6 @@ public class SchoolInfoServiceImpl implements ISchoolInfoService {
     }
 
     @Override
-    @CacheEvict(value = "school",key = "'info:'+#record.schollId",beforeInvocation = true)
     public int updateByPrimaryKey(SchollInfo record) {
         return schollInfoDao.updateByPrimaryKey(record);
     }

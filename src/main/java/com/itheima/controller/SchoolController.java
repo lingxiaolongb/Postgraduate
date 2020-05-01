@@ -45,18 +45,13 @@ public class SchoolController {
 
     @RequestMapping("/info")
     public String schoolLogin( ModelMap model){
-        Object o = model.get("schId");
-        SchollInfo schollInfo=null;
-        if(o==null){
-            schollInfo=schoolInfoService.findSchoolByLoginName(model.get("loginName").toString());
-            model.remove("examId");
-            model.remove("student");
-            model.remove("studentName");
-            model.addAttribute("schId",schollInfo.getSchollId());
-        }else{
-            schollInfo=schoolInfoService.selectByPrimaryKey(o.toString());//已做了缓存
+        SchollInfo schollInfo = schoolInfoService.findSchoolByLoginName(model.get("loginName").toString());
+        if (schollInfo != null) {
+            model.addAttribute("school", schollInfo);
+            model.addAttribute("school", schollInfo);
+            model.addAttribute("schId", schollInfo.getSchollId());
         }
-        model.addAttribute("school", schollInfo);
+
         return "schoolInfo" ;
     }
 
@@ -64,18 +59,15 @@ public class SchoolController {
     @RequestMapping("/save")
     @ResponseBody
     public void schoolSaveInfo(SchollInfo schollInfo){
-
-        schoolInfoService.updateByPrimaryKey(schollInfo);//已清除缓存
+        schoolInfoService.updateByPrimaryKey(schollInfo);
     }
 
-    /**
-     * 发布缺额信息界面
-     * @return
-     */
+
     @RequestMapping("/vacancy")
     public String schoolAddVacancy(){
         return "schoolVacancy";
     }
+
 
 
     @RequestMapping("/vacancy.do")
@@ -88,13 +80,13 @@ public class SchoolController {
         schollVacancy.setTelephone(vacancy.getTelephone());
         schollVacancy.setEmail(vacancy.getEmail());
         schollVacancy.setSchollId(str);
-        for(Vacancy v:vacancy.getVacancies()){//应该用批量插入失败
+        for (Vacancy v : vacancy.getVacancies()) {
             schollVacancy.setSubName(v.getSpecialized());
             schollVacancy.setVnumber(v.getLack());
             SchollVacancy sch=  schoolVacancyService.findSameDataBySubName(schollVacancy);
             if(sch==null) {
                schoolVacancyService.insert(schollVacancy);
-            }else{
+            } else if (sch != null) {
                 schoolVacancyService.updateByPrimaryKey(sch);
             }
 
@@ -102,24 +94,14 @@ public class SchoolController {
 
     }
 
-    /**
-     * 查看发布的缺额信息
-     * @param modelMap
-     * @return
-     */
     @RequestMapping("/view.do")
     public String schoolViewMissing(ModelMap modelMap){
-        String id=modelMap.get("schId").toString();
+        String id = (modelMap.get("schId").toString() == null) ? "" : modelMap.get("schId").toString();
        List<SchollVacancy> vacancyList= schoolVacancyService.findAllBySchId(id);
        modelMap.addAttribute("vacancies",vacancyList);
         return "schoolViewMissing";
     }
 
-    /**
-     * 考生成绩筛选界面
-     * @param modelMap
-     * @return
-     */
     @RequestMapping("/choose")
     public String schoolChoose(ModelMap modelMap){
         String id=(modelMap.get("schId").toString()==null)?"":modelMap.get("schId").toString();
@@ -146,11 +128,7 @@ public class SchoolController {
         return student;
     }
 
-    /**
-     * 向考生发送复试界面
-     *
-     * @return
-     */
+
     @RequestMapping("/notice")
     public String schoolSendNotice(ModelMap model){
         Assert.assertNotNull(model.get("schId").toString());
@@ -171,12 +149,6 @@ public class SchoolController {
         model.addAttribute("ssm2",ssm);
         return "schoolNotice";
     }
-
-    /**
-     * 向考生发送复试界面
-     *
-     * @return
-     */
     @RequestMapping("/notice.send")
     @ResponseBody
     public SsmPage schoolNoticeHasBeenSend(Integer currentPage, ModelMap model){
@@ -206,7 +178,6 @@ public class SchoolController {
         ssmPage.setPage(page);
         return  ssmPage;
     }
-
 
     @RequestMapping("/accept.do")
     @ResponseBody
@@ -248,10 +219,6 @@ public class SchoolController {
     }
 
 
-    /**
-     * 学生同意参加复试界面
-     * @return
-     */
     @RequestMapping("/condition.do")
     public String schoolCondition(ModelMap modelMap){
         String id=(modelMap.get("schId").toString()==null)?"":modelMap.get("schId").toString();

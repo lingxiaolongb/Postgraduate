@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="${pac}/css/taowa.css" />
     <link rel="stylesheet" type="text/css" href="${pac}/css/sch-notice.css" />
     <link rel="stylesheet" type="text/css" href="${pac}/layui/css/layui.css"/>
-    <script src="${pac}/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${pac}/js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
     <script src="${pac}/js/sendNotice.js" type="text/javascript" charset="utf-8"></script>
     <script src="${pac}/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 
@@ -46,7 +46,7 @@
             <li><a href="school/vacancy">发布缺额信息</a></li>
             <li><a href="school/view.do">查看缺额信息</a></li>
             <li><a href="school/choose">筛选考生信息</a></li>
-            <li style="background: #ead2be"><a href="school/notice">发送复试通知</a></li>
+            <li><a href="school/notice">发送复试通知</a></li>
             <li><a href="school/condition.do">考生复试情况</a></li>
         </ul>
     </div>
@@ -68,7 +68,7 @@
                     <col width="180">
                     <col width="180">
                     <col width="150">
-                    <col width="300">
+                    <col width="250">
                 </colgroup>
                 <tr>
                     <th>姓名</th>
