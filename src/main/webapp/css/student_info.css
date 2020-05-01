@@ -1,0 +1,86 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+
+#student_info{
+	width: 50%;
+	height: 620px;
+	margin: 0 auto;
+	position: relative;
+	min-width:750px;
+	float: left;
+	margin-left: 50px;
+
+}
+
+
+#student_info>.title{
+	margin-bottom: 40px;
+	font-family: "microsoft yahei";
+	font-size: 30px;
+	
+}
+
+
+
+#student_info>.items{
+	width: 100%;
+	margin: 15px 0;
+	height: 50px;
+	min-width:400px;
+	
+}
+#student_info>.top_dom{
+	width: 100%;
+	height: 30px;
+	
+	border-top: 1px solid #efe1ac;
+}
+.info_sr_left,.info_sr_right{
+	border-radius: 5px;
+	outline: none;
+	border: #ababab 1px solid;
+	font-size: 14px;
+	width: 200px;
+	height: 30px;
+	margin-right: 60px;
+	float: left;
+	margin-left: 10px;
+	font-size: 18px;
+	text-indent: 5px;
+}
+
+.info_sr_left{
+	margin-right: 50px;
+}
+
+.item_el{
+	width: 100px ;
+	float: left;
+	text-align: right;
+	height: 30px;
+	line-height: 30px;
+	vertical-align: top;
+	
+	
+}
+#student_info>.info_sub{
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	background-color: #20a0ff;
+	color: white;
+	width: 110px;
+	transform: translate(-50%,-100%);
+	outline: none;
+	white-space: nowrap;
+	cursor: pointer;
+	border: 1px solid #c4c4c4;
+	padding: 10px 15px;
+	border-radius: 5px;
+	
+}
+#student_info>.info_sub:hover{
+	background-color: #00B5E5;
+}

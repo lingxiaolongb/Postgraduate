@@ -1,0 +1,96 @@
+
+.student_policy{
+	
+	width: 730px ;
+	height:auto ;
+	min-width: 730px;
+	float: left;
+	margin-left: 50px;
+}
+.stu_sub{
+	
+	list-style: none;
+	border: 1px solid #C4C4C4 ;
+	width: 100%;
+	min-width: 600px;
+
+	
+}
+
+.stu_sub>li{
+	border-top:1px solid #C4C4C4  ;
+	border-bottom: none;
+	text-indent: 3em;
+	line-height: 50px; 
+	text-align: left;
+	position: relative;
+	overflow: hidden;
+	
+}
+
+
+
+.stu_sub>li:first-child{
+	border-top: none;
+		
+}
+
+
+li>.stu_li>.open{
+	background: url(../img/open.jpg) no-repeat ;
+	width: 25px;
+	height: 18px;
+	margin-left: 10px;
+	position: absolute;
+	top: 18px;
+	right: 120px;
+	transform: rotate(270deg);
+
+} 
+
+.rotate>.stu_li>.open{
+	transform: rotate(0deg);
+}
+
+li>.stu_li>.title{
+	 font-size: 28px;
+	font-family: "microsoft sans serif";
+ }
+
+ .content{
+	width: 100%;
+	border-top:1px solid #C4C4C4  ;
+	position: relative;
+	top: 10%;
+	height: 500px;
+	font-size: 14px;
+	overflow-y: scroll;
+	line-height: 25px;
+	font-size: 14px;
+	font-family: "microsoft yahei";
+	display: none;
+	
+}
+
+
+
+.stu_sub>li>.stu_li{
+	height: auto;
+}
+	
+.stu_sub>li>.stu_li:hover{
+	background-color: #00B5E5;
+}
+		
+li>.content>dl{
+	width: 660px;
+	margin:0;
+	margin-left: 30px;
+}
+.content>dl>dt{
+	font-size: 20px;
+}
+
+.add-color{
+	background-color: #00B5E5;
+}

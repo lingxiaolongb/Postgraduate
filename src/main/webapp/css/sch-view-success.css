@@ -1,0 +1,51 @@
+.body_left {
+    width: auto;
+    height: auto;
+    float: left;
+    margin-left: 20px;
+}
+
+table.gridtable {
+    font-family: verdana, arial, sans-serif;
+    font-size: 16px;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    margin: 0;
+    color: #666666;
+}
+
+table.gridtable th {
+    font-size: 16px;
+    background-color: #e0deda;
+    width: auto;
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: left;
+
+}
+
+table.gridtable th:last-child {
+
+    border-right: none
+}
+
+table.gridtable tr {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    height: 30px;
+    font-size: 14px;
+    line-height: 30px;
+}
+table.gridtable tr:hover{
+    background-color: rgba(242, 248, 255, 127);
+
+}
+
+table.gridtable td {
+    padding: 8px;
+    border: 1px solid #ccc;
+
+
+
+}
+

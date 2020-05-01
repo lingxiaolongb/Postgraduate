@@ -1,0 +1,221 @@
+
+
+#student_info{
+    width: 50%;
+    height: 620px;
+    margin: 0 auto;
+    position: relative;
+    min-width:750px;
+    float: left;
+    margin-left: 50px;
+
+}
+
+
+#student_info>.title{
+    margin-bottom: 40px;
+    font-family: "microsoft yahei";
+    font-size: 30px;
+
+}
+
+
+
+#student_info>.items{
+    width: 100%;
+    margin: 15px 0;
+    height: 50px;
+    min-width:400px;
+    position: relative;
+}
+#student_info>.top_dom{
+    width: 100%;
+    height: 30px;
+
+    border-top: 1px solid #efe1ac;
+}
+.info_sr_left,.info_sr_right{
+    border-radius: 5px;
+    outline: none;
+    border: #ababab 1px solid;
+    font-size: 14px;
+    width: 200px;
+    height: 30px;
+    margin-right: 60px;
+    float: left;
+    margin-left: 10px;
+    font-size: 18px;
+    text-indent: 5px;
+}
+
+.info_sr_left{
+    margin-right: 50px;
+}
+
+.item_el{
+    width: 100px ;
+    float: left;
+    text-align: right;
+    height: 30px;
+    line-height: 30px;
+    vertical-align: top;
+
+
+}
+.items>.info_sub{
+    position: absolute;
+    right: -80px;
+    top: -6px;
+    background-color: #20a0ff;
+    color: white;
+    width: 110px;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid #c4c4c4;
+    padding: 10px 15px;
+    border-radius: 5px;
+
+}
+.items>.info_sub:hover{
+    background-color: #00B5E5;
+}
+
+
+
+
+.body_left {
+    width: 800px;
+    border-top: 15px solid #C4C4C4;
+    height: 500px;
+    min-width: 800px;
+    float: left;
+
+}
+
+
+table.gridtable {
+    font-family: verdana, arial, sans-serif;
+    font-size: 16px;
+    color: #333333;
+    border-width: 1px;
+    border-color: #999999;
+    border-collapse: collapse;
+    margin: 0 auto;
+    margin-top: 15px;
+
+
+
+}
+
+table.gridtable th {
+
+    background-color: #e09775;
+    width: au;
+    padding: 8px;
+    border-style: none;
+    border-right: 4px solid #F0F0F0;
+
+}
+
+table.gridtable th:last-child {
+
+    border-right: none
+}
+
+table.gridtable tr {
+    background-color: #d4e3e5;
+}
+
+table.gridtable td {
+    border-width: 1px;
+    padding: 8px;
+    text-align: center;
+
+
+}
+
+
+.body_left>.page {
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.body_left>.page>ul {
+    text-decoration: none;
+}
+
+.page>ul>li {
+    text-decoration: none;
+    height: 32px;
+    display: inline-block;
+    padding: 0px 4px;
+}
+
+.page_ul>li>a {
+    display: inline-block;
+    padding: 0 12px;
+    height: 30px;
+    line-height: 30px;
+    color: #333;
+    border: 1px solid #333333;
+    cursor: pointer;
+}
+
+.page_ul>li>a:hover {
+
+    background-color: #ffaa7f;
+}
+
+a:hover,
+a:visited,
+a:link,
+a:active {
+    text-decoration: none;
+    color: #2b2b2b;
+}
+
+.ffa{
+    background-color: #ffaa7f;
+}
+.participate{
+    outline: none;
+    width: 80px;
+    background-color: #1b9cd7;
+    border-radius: 5px;
+    border-style: none;
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+    font-family: "microsoft yahei";
+}
+.participate:hover{
+    background-color: #5dd7d7;
+}
+
+.top{
+    margin-top: 20px;
+}
+
+.select1 {
+    background: rgba(0,0,0,0.2);/*背景色和透明度，可以设置为url地址的图片*/
+    width: 190px;/*宽度*/
+    height: 35px;/*高度*/
+    margin-left: 40px;
+    font-size: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.select1 select {
+    background: transparent; /*透明*/
+    border: none;
+    width: 190px; /*比上面设置的略宽*/
+    height: auto;
+    border-radius: 10px;
+    margin-top: 5px;
+    color: black;
+    font-size: 16px;
+    font-family: "微软雅黑";
+}

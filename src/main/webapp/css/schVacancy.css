@@ -1,0 +1,111 @@
+
+
+#student_info{
+	width: 50%;
+	height: 620px;
+	margin: 0 auto;
+	position: relative;
+	min-width:750px;
+	float: left;
+	margin-left: 50px;
+
+}
+
+
+#student_info>.title{
+	margin-bottom: 40px;
+	font-family: "microsoft yahei";
+	font-size: 30px;
+	
+}
+
+
+
+#student_info>.items{
+	width: 100%;
+	margin: 15px 0;
+	height: 50px;
+	min-width:400px;
+	
+}
+#student_info>.top_dom{
+	width: 100%;
+	height: 30px;
+	position: relative;
+	
+	border-top: 1px solid #efe1ac;
+}
+.info_sr_left,.info_sr_right{
+	border-radius: 5px;
+	outline: none;
+	border: #ababab 1px solid;
+	width: 200px;
+	height: 30px;
+	float: left;
+	margin-left: 10px;
+	font-size: 18px;
+	text-indent: 5px;
+}
+
+.info_sr_left{
+	margin-right: 60px;
+}
+
+.item_el{
+	width: 100px ;
+	float: left;
+	text-align: right;
+	height: 30px;
+	line-height: 30px;
+	vertical-align: top;
+	
+	
+}
+
+.item_el>.stars{
+	color: red;
+	position: relative;
+	top: 3px;
+	left: -3px;
+}
+
+.top_dom>.add-field{
+	position: absolute;
+	left: 20px;
+	top: 10px;
+	outline: none;
+	cursor: pointer;
+	width: 210px;
+	height: auto;
+	background-color: #ffffff;
+	border: 1px solid #c4c4c4;
+}
+.top_dom>.add-field .add{
+	font-weight: bold;
+	font-size: 40px;
+	vertical-align: middle;
+}
+
+.top_dom>.add-field span{
+	font-weight: bold;
+	font-size: 40px;
+	text-align: center;
+}
+
+.top_dom>.info_sub{
+	position: absolute;
+	left: 40%;
+	top: 60px;
+	background-color: #20a0ff;
+	color: white;
+	width: 110px;
+	outline: none;
+	cursor: pointer;
+	border: 1px solid #c4c4c4;
+	padding: 10px 15px;
+	border-radius: 5px;
+	
+}
+.top_dom>.info_sub:hover{
+	background-color: #00B5E5;
+}

@@ -1,0 +1,120 @@
+* {
+				margin: 0;
+				padding: 0;
+			}
+
+
+			body,
+			html {
+				background: #faf2d5 url(../img/timg.jpg) no-repeat center center fixed;
+				background-size: 100% 100%;
+			}
+
+			.main {
+				margin: 150px auto;
+				width: 400px;
+				height: auto;
+				position: relative;
+			}
+
+			.title {
+				text-align: center;
+			}
+
+			.i_img {
+				vertical-align: middle;
+				width: 60px;
+				height: 60px;
+				margin: 0 10px 15px 0;
+				
+			
+			}
+
+			h1 {
+				display: inline-block;
+				color: wheat;
+			}
+
+			.nav {
+				width: 80%;
+				text-align: center;
+			}
+
+
+
+			.sm {
+				width: 340px;
+				height: 40px;
+				line-height: 40px;
+				text-indent: 40px;
+				border-radius: 5px;
+				font-size: 18px;
+				outline: none;
+				margin: 10px 0;
+				border: 1px #CDCDCD solid;
+
+			}
+
+			.icon-user {
+				position: absolute;
+				left: 0;
+				background: url(../img/user.jpg) no-repeat 0 0;
+				width: 30px;
+				height: 20px;
+				z-index: 3;
+				top: 95px;
+				left: 10px;
+			}
+
+			.icon-pwd {
+				position: absolute;
+				left: 0;
+				background: url(../img/user.jpg) no-repeat 0px -60px;
+				width: 30px;
+				height: 20px;
+				z-index: 3;
+				top: 160px;
+				left: 10px;
+
+			}
+
+			.single {
+				width: 80%;
+				text-align: center;
+			}
+
+			.single>.rm {
+				margin: 10px 10px 15px;
+				cursor: pointer;
+			}
+
+			.btn {
+				border: 2px solid #cdcdcd;
+				color: white;
+				background: #2eafbb;
+				outline: none;
+				width: 150px;
+				height: 50px;
+				font-size: 20px;
+				margin: 10px 10px;
+				border-radius: 10px;
+				cursor: pointer;
+			}
+
+			.btn:hover {
+				color: greenyellow;
+				background: rgba(46, 175, 187, 0.5);
+			}
+
+			.meszh,.mespwd {
+				color: red;
+				font-size: 12px;
+			}
+
+			.and {
+				width: 330px;
+			}
+
+			.rb {
+				border-color: red;
+			}

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.ISchollVacancyDao">
+    <resultMap id="BaseResultMap" type="com.itheima.domian.SchollVacancy">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="scholl_id" jdbcType="VARCHAR" property="schollId"/>
+        <result column="contacts" jdbcType="VARCHAR" property="contacts"/>
+        <result column="sub_name" jdbcType="VARCHAR" property="subName"/>
+        <result column="vnumber" jdbcType="INTEGER" property="vnumber"/>
+        <result column="del_flag" jdbcType="CHAR" property="delFlag"/>
+        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+    </resultMap>
+
+
+    <insert id="insert" parameterType="com.itheima.domian.SchollVacancy">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into scholl_vacancy (scholl_id, contacts, sub_name,
+        vnumber, del_flag,email,telephone)
+        values (#{schollId,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, #{subName,jdbcType=VARCHAR},
+        #{vnumber,jdbcType=BIGINT}, #{delFlag,jdbcType=CHAR},#{email},#{telephone})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.itheima.domian.SchollVacancy">
+        update scholl_vacancy
+        set scholl_id = #{schollId,jdbcType=VARCHAR},
+            contacts  = #{contacts,jdbcType=VARCHAR},
+            sub_name  = #{subName,jdbcType=VARCHAR},
+            vnumber   = #{vnumber,jdbcType=INTEGER},
+            del_flag  = #{delFlag,jdbcType=CHAR},
+            email=#{email},
+            telephone=#{telephone},
+            id=#{id}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id,scholl_id, contacts, sub_name,
+               vnumber, del_flag,email,telephone
+        from scholl_vacancy
+    </select>
+
+    <select id="findAllById" resultType="java.lang.String">
+        select sub_name
+        from scholl_vacancy where scholl_id=#{id} and vnumber>0
+</select>
+
+
+    <select id="findAllByAjax" resultType="java.util.Map">
+        select si.scholl_id 'examId', sub_name 'subName', vnumber 'lack', scholl_name 'schName'
+        from scholl_vacancy sv
+        INNER JOIN scholl_info si
+        ON sv.scholl_id = si.scholl_id
+        <where>
+            vnumber>0
+            <if test="map.findSch!=null and map.findSch!='' ">
+                and scholl_name=#{map.findSch}
+            </if>
+            <if test="map.findSub!=null and map.findSub!='' ">
+                and sub_name=#{map.findSub}
+            </if>
+        </where>
+        limit #{page.begin},#{page.pageSize}
+
+    </select>
+
+    <update id="subVNumber">
+        update scholl_vacancy
+        set  vnumber=vnumber-1
+        where scholl_id = #{map.schId} and sub_name=#{map.subName}
+    </update>
+
+    <select id="findAllByMap" resultType="java.util.Map">
+        select si.scholl_id 'examId', sub_name 'subName', vnumber 'lack', scholl_name 'schName'
+        from scholl_vacancy sv
+                 INNER JOIN scholl_info si
+                            ON sv.scholl_id = si.scholl_id
+
+        where vnumber > 0
+
+        limit #{begin},#{pageSize}
+
+    </select>
+
+    <select id="findRowByAjax" resultType="int">
+        select count(*)
+        from scholl_vacancy sv
+        INNER JOIN scholl_info si
+        ON sv.scholl_id = si.scholl_id
+        <where>
+            vnumber>0
+            <if test="map.findSch!=null and map.findSch!='' ">
+                and scholl_name=#{map.findSch}
+            </if>
+            <if test="map.findSub!=null and map.findSub!='' ">
+                and sub_name=#{map.findSub}
+            </if>
+        </where>
+    </select>
+
+    <select id="findSchoolNames" resultType="java.lang.String">
+        select distinct scholl_name
+        from scholl_vacancy sv
+                 INNER JOIN scholl_info si
+                            ON sv.scholl_id = si.scholl_id
+        WHERE vnumber > 0
+
+    </select>
+    
+    <select id="findSameDataBySubName" resultMap="BaseResultMap">
+        select id,scholl_id, contacts, sub_name,
+               vnumber, del_flag,email,telephone
+        from scholl_vacancy
+        <where>
+            <if test="contacts!=null and contacts!=''">
+                and contacts=#{contacts}
+            </if>
+            <if test="subName!=null and subName!=''">
+                and sub_name=#{subName}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAllBySchId" resultMap="BaseResultMap">
+        select id,scholl_id, contacts, sub_name,
+               vnumber, del_flag,email,telephone
+        from scholl_vacancy
+        where scholl_id=#{id}
+    </select>
+
+</mapper>
