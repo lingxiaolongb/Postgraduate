@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.ISchollStudentMessageDao">
+  <resultMap id="BaseResultMap" type="com.itheima.domian.SchollStudentMessage">
+    <id column="id" jdbcType="BIGINT"  property="id" />
+    <result column="exam_id" jdbcType="VARCHAR" property="examId" />
+    <result column="scholl_id" jdbcType="VARCHAR" property="schollId" />
+    <result column="sub_name" jdbcType="VARCHAR" property="subName" />
+    <result column="send_flag" jdbcType="CHAR" property="sendFlag" />
+    <result column="accept_flag" jdbcType="CHAR" property="acceptFlag" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="to_name"  jdbcType="VARCHAR" property="toName"  />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from scholl_student_message
+    where id = #{id}
+  </delete>
+  <insert id="insert" >
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into scholl_student_message (exam_id, scholl_id, sub_name, 
+      send_flag, accept_flag, del_flag
+      )
+    values (#{examId,jdbcType=VARCHAR}, #{schollId,jdbcType=VARCHAR}, #{subName,jdbcType=VARCHAR}, 
+      #{sendFlag,jdbcType=CHAR}, #{acceptFlag,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.itheima.domian.SchollStudentMessage">
+    update scholl_student_message
+    set exam_id = #{examId,jdbcType=VARCHAR},
+      scholl_id = #{schollId,jdbcType=VARCHAR},
+      sub_name = #{subName,jdbcType=VARCHAR},
+      send_flag = #{sendFlag,jdbcType=CHAR},
+      accept_flag = #{acceptFlag,jdbcType=CHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey"  resultMap="BaseResultMap">
+    select id, exam_id, scholl_id, sub_name, send_flag, accept_flag, del_flag,to_name
+    from scholl_student_message
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, exam_id, scholl_id, sub_name, send_flag, accept_flag, del_flag,to_name
+    from scholl_student_message
+  </select>
+
+
+    <select id="findReDataBySendFlag" resultType="java.util.Map">
+        select si.scholl_name schoolName,sv.sub_name subName,sv.telephone tel,sv.contacts contacts,sv.email email
+        from scholl_info si
+                 inner join scholl_vacancy sv on si.scholl_id = sv.scholl_id
+                 inner  join scholl_student_message ssm on ssm.scholl_id=sv.scholl_id
+        where accept_flag=1 and ssm.to_name=sv.sub_name and ssm.exam_id=#{id} and send_flag!='2'
+        limit #{page.begin},#{page.pageSize}
+    </select>
+
+
+    <select id="findRowsBySendFlag" resultType="java.lang.Integer">
+        select count(*)
+        from scholl_info si
+                 inner join scholl_vacancy sv on si.scholl_id = sv.scholl_id
+                 inner  join scholl_student_message ssm on ssm.scholl_id=sv.scholl_id
+        where accept_flag='1' and ssm.to_name=sv.sub_name and ssm.exam_id=#{id} and send_flag!='2'
+    </select>
+
+
+
+
+    <select id="findSchNoticeNotSend" resultMap="com.itheima.dao.IStudentInfoDao.BaseResultMap">
+        select ssm.exam_id, sname, from_school, from_subject, to_school, to_subject, total
+        from scholl_student_message ssm
+        inner  join student_info si on ssm.exam_id = si.exam_id
+        where  scholl_id=#{id} and accept_flag='0'
+        limit #{page.begin},#{page.pageSize}
+    </select>
+
+    <select id="findSchNotSendRows" resultType="java.lang.Integer">
+            select count(*)
+            from scholl_student_message
+            where scholl_id=#{id} and accept_flag='0'
+    </select>
+
+
+
+    <select id="findSchNoticeSend" resultMap="com.itheima.dao.IStudentInfoDao.BaseResultMap">
+        select ssm.exam_id, sname, from_school, from_subject, to_school, to_subject, total
+        from scholl_student_message ssm
+        inner  join student_info si on ssm.exam_id = si.exam_id
+        where accept_flag='1' and scholl_id=#{id}
+        limit #{page.begin},#{page.pageSize}
+    </select>
+
+    <select id="findSchSendRows" resultType="java.lang.Integer">
+        select count(*)
+        from scholl_student_message
+        where accept_flag='1' and scholl_id=#{id}
+    </select>
+    
+    <update id="acceptStudent" >
+        update scholl_student_message
+        set  accept_flag ='1',
+            to_name=#{map.subName}
+        where exam_id=#{map.stuId} and scholl_id=#{map.schId}
+    </update>
+
+    <update id="refuseStudent" >
+        update scholl_student_message
+        set  accept_flag ='2'
+        where exam_id=#{stuId} and scholl_id=#{schId}
+    </update>
+
+
+
+    <update id="acceptSchool" >
+        update scholl_student_message
+        set  send_flag='3' ,accept_flag='3'
+        where exam_id=#{stuId} and scholl_id=#{schId}
+    </update>
+
+    <update id="refuseSchool" >
+        update scholl_student_message
+        set   send_flag='2'
+        where exam_id=#{stuId} and scholl_id=#{schId}
+    </update>
+
+
+    <select id="findStudentWithSchool" resultMap="BaseResultMap">
+        select  exam_id, scholl_id, sub_name, send_flag, accept_flag, del_flag,to_name
+        from  scholl_student_message
+        where exam_id=#{map.stuId} and scholl_id=#{map.schId}
+    </select>
+
+    <select id="findParticipantStudent" resultMap="com.itheima.dao.IStudentInfoDao.BaseResultMap">
+        select si.exam_id, sname, from_school,
+               from_subject, to_school, ssm.to_name to_subject,total
+        from  student_info si
+                  inner  join scholl_student_message ssm on si.exam_id = ssm.exam_id
+        where scholl_id=#{id} and send_flag='3' and accept_flag='3'
+    </select>
+
+
+
+
+    <select id="findSuccessByStuId" resultMap="com.itheima.dao.ISchollInfoDao.BaseResultMap">
+        select si.scholl_id, contacts, scholl_name,tel, email
+        FROM scholl_student_message ssm
+        inner JOIN scholl_info si on ssm.scholl_id=si.scholl_id
+        WHERE ssm.exam_id=#{id} and send_flag='3'
+    </select>
+
+
+
+
+</mapper>

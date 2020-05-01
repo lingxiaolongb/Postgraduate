@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.ISysUserRoleDao">
+
+    <resultMap id="BaseResultMap" type="com.itheima.domian.SysUserRole">
+        <id property="id" column="id" />
+        <result property="loginName" column="login_name" />
+        <result property="rname" column="rname" />
+    </resultMap>
+
+    <update id="updateInfoByAdmin">
+        update sys_user_role set login_name=#{loginName}
+        where login_name=#{sourceName}
+    </update>
+
+    <select id="findAllByName" resultType="java.util.Map">
+        select login_name loginName ,rname roleName  from sys_user_role
+        <if test="role!=null">
+            <where>
+                <if test="role.loginName!=null and role.loginName!=''">
+                    and login_name regexp #{role.loginName}
+                </if>
+                <if test="role.rname!=null and role.rname!=''">
+                    and rname regexp #{role.rname}
+                </if>
+            </where>
+        </if>
+    limit #{page.begin},#{page.pageSize}
+    </select>
+
+    <select id="findRowByName" resultType="int">
+        select count(*) from sys_user_role
+
+            <where>
+            <if test="loginName!=null and loginName!=''">
+                and login_name regexp #{loginName}
+            </if>
+            <if test="rname!=null and rname!=''">
+                and rname regexp #{rname}
+            </if>
+         </where>
+
+    </select>
+
+    <select id="findWhetherRepeatData" resultMap="BaseResultMap">
+        select login_name ,rname  from sys_user_role
+        where rname=#{rname} and login_name= #{loginName}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" >
+        insert into sys_user_role(login_name, rname)
+        VALUES (#{loginName},#{rname})
+    </insert>
+
+    <update id="update">
+        update sys_user_role set
+        rname=#{role.rname}
+        where login_name=#{role.loginName} and rname=#{sourceRole}
+    </update>
+
+
+    <delete id="delete">
+        delete  from  sys_user_role
+        where login_name=#{loginName} and rname=#{rname}
+    </delete>
+</mapper>

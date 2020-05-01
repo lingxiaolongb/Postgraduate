@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.ISysLoggerDao">
+
+    <resultMap id="BaseResultMap" type="com.itheima.domian.SysLog">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="type" column="type" jdbcType="VARCHAR"></result>
+        <result property="remoteAdd" column="remote_add" jdbcType="VARCHAR" ></result>
+        <result property="method" column="method" jdbcType="VARCHAR"></result>
+        <result property="url" column="url" jdbcType="VARCHAR"></result>
+        <result property="exception" column="exception" jdbcType="VARCHAR"></result>
+        <result property="visitTime" column="visit_time" jdbcType="VARCHAR"></result>
+        <result property="operation" column="operation" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="findRows" resultType="int">
+        select  count(*) from  sys_log
+    </select>
+
+    <select id="findByPaging" resultMap="BaseResultMap">
+            select  id,type, remote_add, method, url, exception, visit_time,operation from sys_log
+            order by id desc
+            limit #{begin},#{pageSize}
+
+    </select>
+
+    <insert id="saveLog">
+        insert into sys_log(type, remote_add, method, url, exception, visit_time,operation)
+        VALUES (#{type},#{remoteAdd},#{method},#{url},#{exception},#{visitTime},#{operation})
+    </insert>
+
+
+</mapper>

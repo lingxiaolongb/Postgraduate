@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.IStudentInfoDao">
+  <resultMap id="BaseResultMap"  type="com.itheima.domian.StudentInfo">
+    <id column="exam_id" jdbcType="VARCHAR" property="examId" />
+    <result column="sname" jdbcType="VARCHAR" property="sname" />
+    <result column="from_school" jdbcType="VARCHAR" property="fromSchool" />
+    <result column="from_subject" jdbcType="VARCHAR" property="fromSubject" />
+    <result column="to_school" jdbcType="VARCHAR" property="toSchool" />
+    <result column="to_subject" jdbcType="VARCHAR" property="toSubject" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="politics" jdbcType="INTEGER" property="politics" />
+    <result column="english" jdbcType="INTEGER" property="english" />
+    <result column="math" jdbcType="INTEGER" property="math" />
+    <result column="specialized" jdbcType="INTEGER" property="specialized" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from student_info
+    where exam_id = #{examId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.itheima.domian.StudentInfo">
+    insert into student_info (exam_id, sname, from_school, 
+      from_subject, to_school, to_subject, 
+      total, politics, english, 
+      math, specialized, del_flag
+      )
+    values (#{examId,jdbcType=VARCHAR}, #{sname,jdbcType=VARCHAR}, #{fromSchool,jdbcType=VARCHAR}, 
+      #{fromSubject,jdbcType=VARCHAR}, #{toSchool,jdbcType=VARCHAR}, #{toSubject,jdbcType=VARCHAR}, 
+      #{total,jdbcType=INTEGER}, #{politics,jdbcType=INTEGER}, #{english,jdbcType=INTEGER}, 
+      #{math,jdbcType=INTEGER}, #{specialized,jdbcType=INTEGER}, #{delFlag,jdbcType=CHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.itheima.domian.StudentInfo">
+    update student_info
+    set sname = #{sname,jdbcType=VARCHAR},
+      from_school = #{fromSchool,jdbcType=VARCHAR},
+      from_subject = #{fromSubject,jdbcType=VARCHAR},
+      to_school = #{toSchool,jdbcType=VARCHAR},
+      to_subject = #{toSubject,jdbcType=VARCHAR},
+      total = #{total,jdbcType=INTEGER},
+      politics = #{politics,jdbcType=INTEGER},
+      english = #{english,jdbcType=INTEGER},
+      math = #{math,jdbcType=INTEGER},
+      specialized = #{specialized,jdbcType=INTEGER},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where exam_id = #{examId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select exam_id, sname, from_school, from_subject, to_school, to_subject, total, politics, 
+    english, math, specialized, del_flag
+    from student_info
+    where exam_id = #{examId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select exam_id, sname, from_school, from_subject, to_school, to_subject, total, politics, 
+    english, math, specialized, del_flag
+    from student_info
+  </select>
+
+    <select id="findAllByInfo" resultMap="BaseResultMap">
+        select exam_id, sname, from_school, from_subject, to_school, to_subject, total, politics,
+               english, math, specialized, del_flag
+        from student_info
+        <choose>
+            <when test="info!=null">
+                <where>
+                    and from_school is not null
+                    <if test="info.fromSchool!=null and info.fromSchool!=''">
+                        and from_school=#{info.fromSchool}
+                    </if>
+                    <if test="info.fromSubject!=null and info.fromSubject!=''">
+                        and from_subject=#{info.fromSubject}
+                    </if>
+                    <if test="info.toSubject!=null and info.toSubject!=''">
+                        and to_subject=#{info.toSubject}
+                    </if>
+                    <if test="info.total!=null">
+                        and total=#{info.total}
+                    </if>
+                    <if test="info.politics!=null">
+                        and politics=#{info.politics}
+                    </if>
+                    <if test="info.english!=null">
+                        and english=#{info.english}
+                    </if>
+                    <if test="info.math!=null">
+                        and math=#{info.math}
+                    </if>
+                    <if test="info.specialized!=null">
+                        and specialized=#{info.specialized}
+                    </if>
+                    and
+                    exam_id not in
+                   (select DISTINCT exam_id FROM scholl_student_message WHERE send_flag='1' or scholl_id =#{id}  )
+                </where>
+            </when>
+            <otherwise>
+                where
+                from_school is not null
+                and
+                exam_id not in
+                (select DISTINCT exam_id FROM scholl_student_message WHERE send_flag='1' or scholl_id =#{id} )
+            </otherwise>
+        </choose>
+        limit #{page.begin},#{page.pageSize}
+    </select>
+
+    <select id="findRows" resultType="java.lang.Integer">
+        select count(*) FROM student_info
+        <choose>
+        <when test="info!=null">
+            <where>
+                and from_school is not null
+                <if test="info.fromSchool!=null and info.fromSchool!=''">
+                    and from_school=#{info.fromSchool}
+                </if>
+                <if test="info.fromSubject!=null and info.fromSubject!=''">
+                    and from_subject=#{info.fromSubject}
+                </if>
+                <if test="info.toSubject!=null and info.toSubject!=''">
+                    and to_subject=#{info.toSubject}
+                </if>
+                <if test="info.total!=null">
+                    and total=#{info.total}
+                </if>
+                <if test="info.politics!=null">
+                    and politics=#{info.politics}
+                </if>
+                <if test="info.english!=null">
+                    and english=#{info.english}
+                </if>
+                <if test="info.math!=null">
+                    and math=#{info.math}
+                </if>
+                <if test="info.specialized!=null">
+                    and specialized=#{info.specialized}
+                </if>
+                and
+                exam_id not in
+                (select DISTINCT exam_id FROM scholl_student_message WHERE send_flag='1' or scholl_id =#{id})
+            </where>
+        </when>
+            <otherwise>
+                where
+                from_school is not null
+                and
+                exam_id not in
+                (select DISTINCT exam_id FROM scholl_student_message WHERE send_flag='1' or scholl_id =#{id})
+            </otherwise>
+        </choose>
+    </select>
+
+
+
+    
+    <select id="findStudentByLoginName" resultMap="BaseResultMap">
+        select  exam_id, sname, from_school, from_subject, to_school, to_subject, total, politics,
+                english, math, specialized, si.del_flag from sys_user u,student_info si
+        where u.uno=si.exam_id and login_name=#{loginName}
+    </select>
+
+
+
+</mapper>

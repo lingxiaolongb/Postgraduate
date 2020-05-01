@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.IStudentApplicationDao">
+  <resultMap id="BaseResultMap" type="com.itheima.domian.StudentApplication">
+    <id column="id"  jdbcType="BIGINT"  property="id" />
+    <result column="exam_id" jdbcType="VARCHAR" property="examId" />
+    <result column="application_1" jdbcType="VARCHAR" property="application1" />
+    <result column="flag_1" jdbcType="CHAR" property="flag1" />
+    <result column="application_2" jdbcType="VARCHAR" property="application2" />
+    <result column="flag_2" jdbcType="CHAR" property="flag2" />
+    <result column="application_3" jdbcType="VARCHAR" property="application3" />
+    <result column="flag_3" jdbcType="CHAR" property="flag3" />
+    <result column="application_4" jdbcType="VARCHAR" property="application4" />
+    <result column="flag_4" jdbcType="CHAR" property="flag4" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from student_application
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.itheima.domian.StudentApplication">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into student_application (exam_id, application_1, flag_1, 
+      application_2, flag_2, application_3, 
+      flag_3, application_4, flag_4
+      )
+    values (#{examId,jdbcType=VARCHAR}, #{application1,jdbcType=VARCHAR}, #{flag1,jdbcType=CHAR}, 
+      #{application2,jdbcType=VARCHAR}, #{flag2,jdbcType=CHAR}, #{application3,jdbcType=VARCHAR}, 
+      #{flag3,jdbcType=CHAR}, #{application4,jdbcType=VARCHAR}, #{flag4,jdbcType=CHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.itheima.domian.StudentApplication">
+    update student_application
+    set exam_id = #{examId,jdbcType=VARCHAR},
+      application_1 = #{application1,jdbcType=VARCHAR},
+      flag_1 = #{flag1,jdbcType=CHAR},
+      application_2 = #{application2,jdbcType=VARCHAR},
+      flag_2 = #{flag2,jdbcType=CHAR},
+      application_3 = #{application3,jdbcType=VARCHAR},
+      flag_3 = #{flag3,jdbcType=CHAR},
+      application_4 = #{application4,jdbcType=VARCHAR},
+      flag_4 = #{flag4,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="findByExamId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select  exam_id, application_1, flag_1, application_2, flag_2, application_3,
+    flag_3, application_4, flag_4
+    from student_application
+    where exam_id=#{id}
+  </select>
+
+
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, exam_id, application_1, flag_1, application_2, flag_2, application_3, 
+    flag_3, application_4, flag_4
+    from student_application
+  </select>
+</mapper>

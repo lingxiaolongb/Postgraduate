@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.ISysUserDao">
+  <resultMap id="BaseResultMap" type="com.itheima.domian.SysUser">
+    <id column="id"  jdbcType="BIGINT" property="id" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="uno" jdbcType="VARCHAR" property="uno" />
+    <result column="uname" jdbcType="VARCHAR" property="uname" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="uphone" jdbcType="VARCHAR" property="uphone" />
+    <result column="login_flag" jdbcType="CHAR" property="loginFlag" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" keyColumn="id" useGeneratedKeys="true">
+    insert into sys_user (login_name, password, uno, 
+      uname, email, uphone, 
+      login_flag, del_flag, remarks
+      )
+    values (#{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{uno,jdbcType=VARCHAR}, 
+      #{uname,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{uphone,jdbcType=VARCHAR}, 
+      #{loginFlag,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+
+
+    <update id="updateByLoginName">
+        update sys_user
+        set login_name = #{user.loginName,jdbcType=VARCHAR},
+            uname = #{user.uname,jdbcType=VARCHAR},
+            email = #{user.email,jdbcType=VARCHAR},
+            uphone = #{user.uphone,jdbcType=VARCHAR},
+            login_flag = #{user.loginFlag,jdbcType=CHAR}
+        where  login_name=#{sourceName}
+    </update>
+
+
+
+
+    <select id="findByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, login_name, password, uno, uname, email, uphone, login_flag, del_flag, 
+    remarks
+    from sys_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+
+
+  <select id="findAll" resultMap="BaseResultMap">
+    select  login_name, uno, uname, email, uphone, login_flag
+    from sys_user
+
+        <if test="user!=null">
+            <where>
+                <if test="user.loginName!=null and user.loginName!=''">
+                    and login_name REGEXP #{user.loginName}
+                </if>
+                <if test="user.uname!=null and user.uname!=''">
+                    and uname REGEXP #{user.uname}
+                </if>
+            </where>
+        </if>
+
+    limit #{page.begin},#{page.pageSize}
+  </select>
+
+    <select id="findRows" resultType="int">
+        select  count(*)
+        from sys_user
+        <if test="user!=null">
+            <where>
+                <if test="user.loginName!=null and user.loginName!=''">
+                    and login_name REGEXP #{user.loginName}
+                </if>
+                <if test="user.uname!=null and user.uname!=''">
+                    and uname REGEXP #{user.uname}
+                </if>
+            </where>
+        </if>
+    </select>
+
+
+    <!-- 此句进行过SQL优化-->
+    <select id="findVerifyAccount" resultMap="BaseResultMap">
+        select ur.id, ur.login_name, password, uno, uname, email, uphone, login_flag, del_flag,
+               remarks
+        from sys_user_role ur, sys_user u
+        where  u.login_name=#{user.loginName}
+        and password=#{user.password}
+        and ur.rname=#{role} and u.login_name=ur.login_name
+    </select>
+
+    <!-- 此句进行过SQL优化-->
+    <select id="findByLoginName"  resultType="java.util.Map">
+        select sur.login_name loginName,sur.rname roleName,su.uno id
+        from sys_user su,sys_user_role sur
+        where su.login_name=#{sourceName} and su.login_name = sur.login_name
+    </select>
+
+
+
+</mapper>
